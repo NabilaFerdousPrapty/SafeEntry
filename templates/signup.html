@@ -3,9 +3,9 @@
 {% block title %}Sign Up - My Application{% endblock %}
 
 {% block content %}
-<h2 class="text-2xl font-semibold mb-4">Sign Up</h2>
+<h2 class="text-2xl font-semibold mb-4 text-center my-4">Sign Up</h2>
 
-<form id="signupForm" action="/signup" method="POST">
+<form class="mx-auto max-w-5xl" id="signupForm" action="/signup" method="POST">
     <div class="mb-4">
         <label for="username" class="block text-sm font-medium">Username</label>
         <input type="text" id="username" name="username" required
@@ -24,7 +24,8 @@
     </div>
 
     <!-- reCAPTCHA token (hidden) -->
-    <input type="hidden" name="recaptcha_response" id="recaptchaResponse">
+    <input type="hidden" name="g_recaptcha_response" id="recaptchaResponse">
+
 
     <button type="submit" class="bg-blue-500 text-white p-2 rounded-md w-full mt-4" id="submitBtn">
         Sign Up
@@ -32,20 +33,19 @@
 </form>
 
 <script>
-    // reCAPTCHA v3 handling
     grecaptcha.ready(function () {
         document.getElementById('signupForm').addEventListener('submit', function (event) {
-            event.preventDefault(); // Prevent the form from submitting until reCAPTCHA is validated
+            event.preventDefault(); // Prevent form submission until reCAPTCHA is validated
 
-            // Execute reCAPTCHA and get the token
-            grecaptcha.execute('YOUR_SITE_KEY', { action: 'submit' }).then(function (token) {
-                // Set the reCAPTCHA token to the hidden input field
-                document.getElementById('recaptchaResponse').value = token;
-
-                // Now submit the form after the token is set
-                document.getElementById('signupForm').submit();
+            grecaptcha.execute('6Le2RboqAAAAAFhVfUSnXer0xJ7i_BECJzCE7SHu', { action: 'submit' }).then(function (token) {
+                document.getElementById('recaptchaResponse').value = token; // 
+                console.log('reCAPTCHA Token:', token);
+                // Set token in hidden input
+                document.getElementById('signupForm').submit(); // Submit the form
             });
         });
     });
+
+
 </script>
 {% endblock %}
