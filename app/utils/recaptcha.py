@@ -22,7 +22,19 @@ def verify_recaptcha(token):
 
     # Check if the response indicates success
     if result.get('success'):
+        print("reCAPTCHA verification succeeded")
         return True
     else:
         print("Error: Invalid reCAPTCHA")
         return False
+
+
+# Example: Simulating a user signup with reCAPTCHA validation
+def signup_user(token):
+    if verify_recaptcha(token):
+        # Proceed with the signup logic (e.g., storing user data in the database)
+        return {"success": True, "message": "Signup successful!"}
+    else:
+        return {"success": False, "message": "Invalid reCAPTCHA, signup failed."}
+
+
