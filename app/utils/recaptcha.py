@@ -1,6 +1,5 @@
 import requests
-from turso import Turso
-from bcrypt import hashpw, gensalt, checkpw
+
 
 # Function to verify reCAPTCHA token
 def verify_recaptcha(token):
@@ -84,23 +83,3 @@ def signup_user(token, user_data):
     else:
         return {"success": False, "message": "Invalid reCAPTCHA, signup failed."}
 
-# Example usage
-if __name__ == "__main__":
-    # Simulated user signup request
-    recaptcha_token = "USER_RECAPTCHA_TOKEN_FROM_FRONTEND"  # Replace with actual token
-    user_info = {
-        "name": "John Doe",
-        "email": "johndoe@example.com",
-        "mobile": "1234567890",
-        "pin": "12345"  # Ensure this is hashed if storing sensitive information like PIN
-    }
-
-    # Signup process
-    signup_result = signup_user(recaptcha_token, user_info)
-    print(signup_result)
-
-    # Login process
-    login_email = "johndoe@example.com"
-    login_pin = "12345"
-    login_result = login_user(login_email, login_pin)
-    print(login_result)
