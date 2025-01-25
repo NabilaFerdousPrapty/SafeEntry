@@ -51,3 +51,4 @@ async def dashboard(request: Request, current_user: dict = Depends(get_current_u
             "tasks": current_user.get("tasks", []),
         },
     )
+
