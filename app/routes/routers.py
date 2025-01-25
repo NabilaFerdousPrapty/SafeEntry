@@ -12,7 +12,7 @@ templates = Jinja2Templates(directory="templates")
 
 # Verify Google reCAPTCHA
 def verify_recaptcha(token: str) -> bool:
-    secret_key = "YOUR_SECRET_KEY"  # Replace with your reCAPTCHA secret key
+    secret_key = ""  # Replace with your reCAPTCHA secret key
     response = requests.post(
         "https://www.google.com/recaptcha/api/siteverify",
         data={"secret": secret_key, "response": token},
