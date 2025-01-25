@@ -40,5 +40,23 @@ class Review:
         self.email = email
         self.comment = comment
         self.rate = rate
-        
+
+
+class Contact:
+    def __init__(self, name, email,phone,location,service,message):
+        self.name = name
+        self.email = email
+        self.phone = phone
+        self.location = location
+        self.service = service
+        self.message = message
+
+
+class Service:
+    def __init__(self, name, description,price,photoURL):
+        self.name = name
+        self.description = description
+        self.price = price
+        self.photoURL = photoURL
+
 
