@@ -83,3 +83,27 @@ def signup_user(token, user_data):
     else:
         return {"success": False, "message": "Invalid reCAPTCHA, signup failed."}
 
+
+def fetch_user_data(email: str):
+    try:
+        query = "SELECT * FROM users WHERE email = ?;"
+        result = client.execute(query, [email])
+        if not result:
+            return None
+        return result[0]
+    except Exception as e:
+        print(f"Error fetching user data: {e}")
+        return None
+    
+
+def add_new_booking(booking_data):
+    try:
+        query = """
+        INSERT INTO bookings (user_id, room_id, check_in, check_out) VALUES (?, ?, ?, ?);
+        """
+        client.execute(query, [booking_data['user_id'], booking_data['room_id'], booking_data['check_in'], booking_data['check_out']])
+        print("Booking added successfully!")
+        return {"success": True, "message": "Booking added successfully!"}
+    except Exception as e:
+        print(f"Error adding booking: {e}")
+        return {"success": False, "message": "Failed to add booking."}
