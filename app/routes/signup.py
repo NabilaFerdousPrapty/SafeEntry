@@ -29,3 +29,13 @@ templates = Jinja2Templates(directory="templates")  # Make sure the templates fo
 @router.get("/signup", response_class=HTMLResponse)
 async def signup_form(request: Request):
     return templates.TemplateResponse("signup.html", {"request": request})
+
+@router.post("/signup", response_class=HTMLResponse)
+async def signup(username: str = Form(...), email: str = Form(...), g_recaptcha_response: str = Form(...)):
+    # Verify Google reCAPTCHA
+    is_valid = verify_recaptcha(g_recaptcha_response)
+    if not is_valid:
+        return templates.TemplateResponse("signup.html", {"request": request, "message": "Invalid reCAPTCHA"})
+
+    # Proceed with user registration
+    return templates.TemplateResponse("signup.html", {"request": request, "message": "Signup successful!"})
