@@ -46,3 +46,15 @@ async def signup(
 async def show_login_form(request: Request):
     """Render the login form."""
     return templates.TemplateResponse("login.html", {"request": request})
+ 
+
+@router.get('/dashboard', response_class=HTMLResponse)
+async def dashboard(request: Request):
+    return templates.TemplateResponse("dashboard.html", {"request": request})
+
+
+@router.get('/profile', response_class=HTMLResponse)
+async def profile(request: Request):
+    return templates.TemplateResponse("profile.html", {"request": request})
+
+
