@@ -36,6 +36,23 @@ async def google_oauth(request: Request):
     redirect_uri = request.url_for("oauth_google_callback")
     return await oauth.google.authorize_redirect(request, redirect_uri)
 
+@router.get("/oauth/google/callback")
+async def oauth_google_callback(request: Request):
+    token = await oauth.google.authorize_access_token(request)
+    user = await oauth.google.parse_id_token(request, token)
+    return JSONResponse(user)
+
+@router.get("/oauth/github")
+async def github_oauth(request: Request):
+    redirect_uri = request.url_for("oauth_github_callback")
+    return await oauth.github.authorize_redirect(request, redirect_uri)
+
+@router.get("/oauth/github/callback")
+async def oauth_github_callback(request: Request):
+    token = await oauth.github.authorize_access_token(request)
+    user = await oauth.github.parse_id_token(request, token)
+    return JSONResponse(user)
+
 router.get("/oauth")
 async def oauth_form(request: Request):
     return templates.TemplateResponse("oauth.html", {"request": request})
