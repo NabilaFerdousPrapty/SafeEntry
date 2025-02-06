@@ -57,3 +57,12 @@ router.get("/oauth")
 async def oauth_form(request: Request):
     return templates.TemplateResponse("oauth.html", {"request": request})
 
+@router.post("/oauth")
+async def oauth_form(request: Request, token: str = Form(...)):
+    if verify_recaptcha(token):
+        return {"message": "reCAPTCHA verification succeeded"}
+    else:
+        return {"message": "Error: Invalid reCAPTCHA"}
+    
+
+
